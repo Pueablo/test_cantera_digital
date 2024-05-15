@@ -11,8 +11,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class EmployeeServiceImpl implements EmployeeService {
@@ -48,5 +51,28 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         repository.persist(employee);
         return employee;
+    }
+
+    @Override
+    public List<EmployeeEntity> findEmployeesByJobId(Long jobId) {
+        return repository.findByJobId(jobId);
+    }
+
+    @Override
+    public List<EmployeeEntity> filterEmployeesByJobIdAndGender(Long jobId, Long genderId) {
+        return repository.find("jobId = ?1 and genderId = ?2", jobId, genderId).list();
+    }
+
+    @Override
+    public List<EmployeeEntity> filterAndSortEmployeesByJobId(Long jobId) {
+        return repository.find("jobId", jobId).stream()
+                .sorted(Comparator.comparing(EmployeeEntity::getLastName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, List<EmployeeEntity>> groupEmployeesByLastName(Long jobId) {
+        return repository.find("jobId", jobId).stream()
+                .collect(Collectors.groupingBy(EmployeeEntity::getLastName));
     }
 }

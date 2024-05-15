@@ -27,12 +27,6 @@ public class EmployeeController {
     @Inject
     private EmployeeService employeeService;
 
-    @GET
-    public Response listEmployee() {
-        List<EmployeeEntity> jobs = employeeService.findAllEmployee();
-        return Response.ok(jobs).build();
-    }
-
     @POST
     @Path("/create")
     public Response createEmployee(EmployeeDto employee){

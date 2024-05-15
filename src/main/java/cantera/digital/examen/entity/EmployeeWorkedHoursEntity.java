@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "employeed_worked_hours")
 public class EmployeeWorkedHoursEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "employee_id")

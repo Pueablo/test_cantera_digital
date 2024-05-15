@@ -3,6 +3,7 @@ package cantera.digital.examen.controller;
 import cantera.digital.examen.dto.EmployeeDto;
 import cantera.digital.examen.entity.EmployeeEntity;
 import cantera.digital.examen.entity.JobEntity;
+import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.payload.ResponseMessageEmployee;
 import cantera.digital.examen.repository.JobRepository;
 import cantera.digital.examen.service.EmployeeService;
@@ -36,7 +37,7 @@ public class EmployeeController {
                     .id(employeeEntity.getId())
                     .success(true)
                     .build()).status(Response.Status.CREATED).build();
-        } catch (Exception e) {
+        } catch (TechnicalException e) {
             log.error(e.getMessage());
             return Response.ok(ResponseMessageEmployee.builder()
                     .id(null)

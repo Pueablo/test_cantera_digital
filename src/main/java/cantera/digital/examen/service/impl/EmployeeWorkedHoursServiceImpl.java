@@ -3,6 +3,7 @@ package cantera.digital.examen.service.impl;
 import cantera.digital.examen.dto.EmployeeRangesDto;
 import cantera.digital.examen.entity.EmployeeEntity;
 import cantera.digital.examen.entity.EmployeeWorkedHoursEntity;
+import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.repository.EmployeeRepository;
 import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.service.EmployeeWorkedHoursService;
@@ -22,11 +23,11 @@ public class EmployeeWorkedHoursServiceImpl implements EmployeeWorkedHoursServic
     public Integer findTotalHoursForEmployee(EmployeeRangesDto employeeRangesDto) {
         EmployeeEntity employeeWorkedHours = employeeRepository.findByEmployeeId(employeeRangesDto.getEmployeeId());
         if (employeeWorkedHours == null) {
-            throw new IllegalStateException("Employee ID not found");
+            throw new TechnicalException("Employee ID not found");
         }
 
         if (employeeRangesDto.getStartDate().after(employeeRangesDto.getEndDate())) {
-            throw new IllegalArgumentException("The start date must be before the end date.");
+            throw new TechnicalException("The start date must be before the end date.");
         }
 
         return repository.findByEmployeeIdAndWorkedDateBetween(employeeRangesDto.getEmployeeId(), employeeRangesDto.getStartDate(), employeeRangesDto.getEndDate())

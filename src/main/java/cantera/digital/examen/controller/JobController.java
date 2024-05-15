@@ -2,6 +2,7 @@ package cantera.digital.examen.controller;
 
 import cantera.digital.examen.dto.EmployeeRangesDto;
 import cantera.digital.examen.entity.JobEntity;
+import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.payload.ResponseMessagePaymentEmployee;
 import cantera.digital.examen.payload.ResponseMessageTotalHoursWorked;
 import cantera.digital.examen.repository.JobRepository;
@@ -32,7 +33,7 @@ public class JobController {
                     payment(service.calculatePayment(employeeRangesDto)).
                     success(true)
                     .build()).build();
-        } catch (Exception e) {
+        } catch (TechnicalException e) {
             log.error(e.getMessage());
             return Response.ok(ResponseMessagePaymentEmployee.builder().
                     payment(null).

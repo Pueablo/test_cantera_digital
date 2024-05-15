@@ -4,6 +4,7 @@ import cantera.digital.examen.dto.EmployeeRangesDto;
 import cantera.digital.examen.entity.EmployeeEntity;
 import cantera.digital.examen.entity.EmployeeWorkedHoursEntity;
 import cantera.digital.examen.entity.JobEntity;
+import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.repository.EmployeeRepository;
 import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.repository.JobRepository;
@@ -30,11 +31,11 @@ public class JobServiceImpl implements JobService {
     public BigDecimal calculatePayment(EmployeeRangesDto employeeRangesDto) {
         EmployeeEntity employee = employeeRepository.findById(employeeRangesDto.getEmployeeId());
         if (employee == null) {
-            throw new IllegalArgumentException("Employee ID not found");
+            throw new TechnicalException("Employee ID not found");
         }
 
         if (employeeRangesDto.getStartDate().after(employeeRangesDto.getEndDate())) {
-            throw new IllegalArgumentException("The start date must be before the end date");
+            throw new TechnicalException("The start date must be before the end date");
         }
 
         List<EmployeeWorkedHoursEntity> workedHours = employeeWorkedHoursRepository.find("employeeId = ?1 and workedDate between ?2 and ?3",

@@ -2,8 +2,10 @@ package cantera.digital.examen.service.impl;
 
 import cantera.digital.examen.dto.EmployeeDto;
 import cantera.digital.examen.entity.EmployeeEntity;
+import cantera.digital.examen.entity.EmployeeWorkedHoursEntity;
 import cantera.digital.examen.entity.JobEntity;
 import cantera.digital.examen.repository.EmployeeRepository;
+import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.repository.JobRepository;
 import cantera.digital.examen.service.EmployeeService;
 import cantera.digital.examen.service.JobService;
@@ -11,10 +13,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -25,7 +24,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Inject
     private JobRepository jobRepository;
-
 
     @Override
     @Transactional
@@ -74,5 +72,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Map<String, List<EmployeeEntity>> groupEmployeesByLastName(Long jobId) {
         return repository.find("jobId", jobId).stream()
                 .collect(Collectors.groupingBy(EmployeeEntity::getLastName));
+    }
+
+    public List<EmployeeDto> getAllEmployees() {
+        List<EmployeeEntity> employees = repository.listAll();
+        List<EmployeeDto> employeeDTOs = new ArrayList<>();
+
+        employees.parallelStream().forEach(employee -> {
+            EmployeeDto employeeDto = EmployeeDto.builder().
+                    genderId(employee.getGenderId()).
+                    jobId(employee.getJobId()).
+                    name(employee.getName()).
+                    lastName(employee.getName()).
+                    build();
+            employeeDTOs.add(employeeDto);
+        });
+
+        return employeeDTOs;
     }
 }

@@ -16,4 +16,6 @@ public interface EmployeeService {
     List<EmployeeEntity> filterAndSortEmployeesByJobId(Long jobId);
 
     Map<String, List<EmployeeEntity>> groupEmployeesByLastName(Long jobId);
+
+    List<EmployeeDto> getAllEmployees();
 }

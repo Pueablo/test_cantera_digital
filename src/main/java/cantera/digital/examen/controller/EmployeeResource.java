@@ -40,4 +40,10 @@ public class EmployeeResource {
     public Map<String, List<EmployeeEntity>> groupEmployeesByLastName(@PathParam("jobId") Long jobId) {
         return employeeService.groupEmployeesByLastName(jobId);
     }
+
+    @GET
+    @Path("/all")
+    public List<EmployeeDto> getAllEmployees() {
+        return employeeService.getAllEmployees();
+    }
 }

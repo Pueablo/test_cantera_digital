@@ -7,6 +7,7 @@ import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.payload.ResponseMessageEmployee;
 import cantera.digital.examen.repository.JobRepository;
 import cantera.digital.examen.service.EmployeeService;
+import cantera.digital.examen.util.Constants;
 import io.netty.handler.codec.http.HttpConstants;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpStatusClass;
@@ -19,7 +20,7 @@ import org.jboss.logging.annotations.Pos;
 
 import java.util.List;
 
-@Path("api/v1/employee")
+@Path(Constants.PATH_EMPLOYEE)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Slf4j

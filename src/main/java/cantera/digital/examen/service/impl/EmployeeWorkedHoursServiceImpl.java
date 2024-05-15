@@ -7,6 +7,7 @@ import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.repository.EmployeeRepository;
 import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.service.EmployeeWorkedHoursService;
+import cantera.digital.examen.util.Constants;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -17,17 +18,17 @@ public class EmployeeWorkedHoursServiceImpl implements EmployeeWorkedHoursServic
     private EmployeeWorkedHoursRepository repository;
 
     @Inject
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @Override
     public Integer findTotalHoursForEmployee(EmployeeRangesDto employeeRangesDto) {
         EmployeeEntity employeeWorkedHours = employeeRepository.findByEmployeeId(employeeRangesDto.getEmployeeId());
         if (employeeWorkedHours == null) {
-            throw new TechnicalException("Employee ID not found");
+            throw new TechnicalException(Constants.EMPLOYEE_NOT_FOUND);
         }
 
         if (employeeRangesDto.getStartDate().after(employeeRangesDto.getEndDate())) {
-            throw new TechnicalException("The start date must be before the end date.");
+            throw new TechnicalException(Constants.DATA_FORMAT_ERROR);
         }
 
         return repository.findByEmployeeIdAndWorkedDateBetween(employeeRangesDto.getEmployeeId(), employeeRangesDto.getStartDate(), employeeRangesDto.getEndDate())

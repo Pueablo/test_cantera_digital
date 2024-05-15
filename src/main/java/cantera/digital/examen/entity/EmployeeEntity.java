@@ -1,5 +1,7 @@
 package cantera.digital.examen.entity;
 
+import cantera.digital.examen.util.Calculate;
+import cantera.digital.examen.util.Constants;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
@@ -39,8 +41,8 @@ public class EmployeeEntity {
             return false;
         }
         long difference = new Date().getTime() - birthdate.getTime();
-        int age = (int) (difference / (1000 * 60 * 60 * 24 * 365.25));
-        return age >= 18;
+        int age = Calculate.differenceBetweenDate(difference);
+        return age >= Constants.MINIMUN_AGE;
     }
 
 }

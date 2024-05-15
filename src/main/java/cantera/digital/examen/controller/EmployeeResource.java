@@ -3,6 +3,7 @@ package cantera.digital.examen.controller;
 import cantera.digital.examen.dto.EmployeeDto;
 import cantera.digital.examen.entity.EmployeeEntity;
 import cantera.digital.examen.service.EmployeeService;
+import cantera.digital.examen.util.Constants;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Map;
 
-@Path("api/v1/employees")
+@Path(Constants.PATH_EMPLOYEE_RESOURCE)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeResource {

@@ -4,6 +4,7 @@ import cantera.digital.examen.dto.EmployeeRangesDto;
 import cantera.digital.examen.error.TechnicalException;
 import cantera.digital.examen.payload.ResponseMessageTotalHoursWorked;
 import cantera.digital.examen.service.EmployeeWorkedHoursService;
+import cantera.digital.examen.util.Constants;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -13,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 
-@Path("api/v1/getHours")
+@Path(Constants.PATH_EMPLOYEE_WORKED_HOURS)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Slf4j

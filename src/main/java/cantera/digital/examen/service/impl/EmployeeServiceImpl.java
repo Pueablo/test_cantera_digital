@@ -10,6 +10,7 @@ import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.repository.JobRepository;
 import cantera.digital.examen.service.EmployeeService;
 import cantera.digital.examen.service.JobService;
+import cantera.digital.examen.util.Constants;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -33,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<JobEntity> job = jobRepository.findByIdOptional(employeeDto.getJobId());
 
         if (job.isEmpty()){
-            throw new TechnicalException("The job not exist!");
+            throw new TechnicalException(Constants.JOB_NOT_EXIST);
         }
 
         EmployeeEntity employee = EmployeeEntity.builder().
@@ -45,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 build();
 
         if (!employee.validateBirthday()){
-            throw new TechnicalException("You are underage!");
+            throw new TechnicalException(Constants.UNDERAGE);
         }
 
         repository.persist(employee);

@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 build();
 
         if (!employee.validateBirthday()){
-            throw new IllegalArgumentException("You're underage!");
+            throw new IllegalArgumentException("You are underage!");
         }
 
         employeeRepository.persist(employee);

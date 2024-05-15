@@ -34,6 +34,7 @@ public class EmployeeController {
     }
 
     @POST
+    @Path("/create")
     public Response createEmployee(EmployeeDto employee){
         try {
             EmployeeEntity employeeEntity = employeeService.save(employee);

@@ -15,7 +15,4 @@ public class EmployeeWorkedHoursRepository implements PanacheRepository<Employee
         return find("employeeId = ?1 and workedDate between ?2 and ?3", employeeId, startDate, endDate).list();
     }
 
-    public EmployeeWorkedHoursEntity findByEmployeeId(Long employeeId) {
-        return find("employeeId", employeeId).firstResult();
-    }
 }

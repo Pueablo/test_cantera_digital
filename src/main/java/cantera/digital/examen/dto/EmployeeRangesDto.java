@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WorkedHoursDto {
+public class EmployeeRangesDto {
     private Long employeeId;
     private Date startDate;
     private Date endDate;

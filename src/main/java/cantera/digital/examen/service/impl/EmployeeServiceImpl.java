@@ -16,11 +16,11 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Inject
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository repository;
 
     @Override
     public List<EmployeeEntity> findAllEmployee() {
-        return employeeRepository.listAll();
+        return repository.listAll();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new IllegalArgumentException("You are underage!");
         }
 
-        employeeRepository.persist(employee);
+        repository.persist(employee);
         return employee;
     }
 }

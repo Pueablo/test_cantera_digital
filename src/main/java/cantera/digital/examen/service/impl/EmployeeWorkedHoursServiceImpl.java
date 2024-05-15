@@ -1,13 +1,13 @@
 package cantera.digital.examen.service.impl;
 
-import cantera.digital.examen.dto.WorkedHoursDto;
+import cantera.digital.examen.dto.EmployeeRangesDto;
+import cantera.digital.examen.entity.EmployeeEntity;
 import cantera.digital.examen.entity.EmployeeWorkedHoursEntity;
+import cantera.digital.examen.repository.EmployeeRepository;
 import cantera.digital.examen.repository.EmployeeWorkedHoursRepository;
 import cantera.digital.examen.service.EmployeeWorkedHoursService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-
-import java.util.Optional;
 
 @ApplicationScoped
 public class EmployeeWorkedHoursServiceImpl implements EmployeeWorkedHoursService {
@@ -15,19 +15,21 @@ public class EmployeeWorkedHoursServiceImpl implements EmployeeWorkedHoursServic
     @Inject
     private EmployeeWorkedHoursRepository repository;
 
+    @Inject
+    EmployeeRepository employeeRepository;
+
     @Override
-    public Integer findTotalHoursForEmployee(WorkedHoursDto workedHoursDto) {
-        EmployeeWorkedHoursEntity employeeWorkedHours = repository.findByEmployeeId(workedHoursDto.getEmployeeId());
+    public Integer findTotalHoursForEmployee(EmployeeRangesDto employeeRangesDto) {
+        EmployeeEntity employeeWorkedHours = employeeRepository.findByEmployeeId(employeeRangesDto.getEmployeeId());
         if (employeeWorkedHours == null) {
             throw new IllegalStateException("Employee ID not found");
         }
 
-        if (workedHoursDto.getStartDate().after(workedHoursDto.getEndDate())) {
+        if (employeeRangesDto.getStartDate().after(employeeRangesDto.getEndDate())) {
             throw new IllegalArgumentException("The start date must be before the end date.");
-
         }
 
-        return repository.findByEmployeeIdAndWorkedDateBetween(workedHoursDto.getEmployeeId(), workedHoursDto.getStartDate(), workedHoursDto.getEndDate())
+        return repository.findByEmployeeIdAndWorkedDateBetween(employeeRangesDto.getEmployeeId(), employeeRangesDto.getStartDate(), employeeRangesDto.getEndDate())
                 .stream()
                 .mapToInt(EmployeeWorkedHoursEntity::getWorkedHours)
                 .sum();

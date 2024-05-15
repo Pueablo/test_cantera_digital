@@ -1,10 +1,7 @@
 package cantera.digital.examen.service;
 
-import cantera.digital.examen.dto.WorkedHoursDto;
-import cantera.digital.examen.entity.JobEntity;
-
-import java.util.List;
+import cantera.digital.examen.dto.EmployeeRangesDto;
 
 public interface EmployeeWorkedHoursService {
-    Integer findTotalHoursForEmployee(WorkedHoursDto workedHoursDto);
+    Integer findTotalHoursForEmployee(EmployeeRangesDto employeeRangesDto);
 }
